@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <h1>Uživatelský systém</h1>
+        <a href="{{ path('user_registration') }}" type="button" class="btn btn-info">Nový uživatel</a>
+    </div>
+    <div class="container" style="margin-top: 20px">
+        <h3>Existující uživatelé</h3>
+        <table class="table">
+            <tr>
+                <td>Jméno</td>
+                <td>E-mail</td>
+                <td>Role</td>
+            </tr>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.email }}</td>
+                    {% if(user.role == 0) %}
+                        <td>Administrátor</td>
+                    {% else %}
+                        <td>Uživatel</td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+{% endblock %}

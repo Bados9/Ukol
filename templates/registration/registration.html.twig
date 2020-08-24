@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <a href="{{ path('app_user_homepage') }}" class="button">Zpět</a>
+{{ form_start(form, {'action': path('app_user_saveuser'), 'method': 'POST'}) }}
+    {{ form_row(form.name, { 'label': 'Jméno' }) }}
+    {{ form_row(form.email, { 'label': 'E-mail' }) }}
+    {{ form_row(form.role, { 'label': 'Role' }) }}
+    {{ form_row(form.passwordText.first) }}
+    {{ form_row(form.passwordText.second) }}
+{{ form_end(form) }}
+
+    <script>
+        $('form').submit(function(e) {
+            e.preventDefault();
+
+            let form = $(this);
+            let url  = form.attr('action');
+            let data = {
+              "name":$('#registration_name').val(),
+                "email":$('#registration_email').val(),
+                "role":$('#registration_role').val(),
+                "password":$('#registration_passwordText_first').val()
+            };
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: JSON.stringify(data),
+                success: function(data) {
+                    console.log(data);
+                    window.location.replace("/");
+                },
+            });
+        });
+    </script>
+
+{% endblock %}
+
